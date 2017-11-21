@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" ng-app='myApp'>
+  <head>
+    <meta charset="utf-8">
+    <title>lab1</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <script src="bower_components/angular/angular.js"></script>
+	<script>			
+		var myApp = angular.module('myApp', []);
+		myApp.controller('myFunction', function($scope) {
+		$scope.name = 'name in scope';
+		});
+		myApp.controller('myFunction2', function($scope) {
+		$scope.name = 'second name in scope';
+		});
+		myApp.controller('quests', function($scope) {
+		$scope.quests = [{'name': 'Контроллеры', 'snippet': 'С помощью контроллера выводится данный текст. Конкретно в контроллере "quests" создан массив, приписанный к объекту $scope'},
+		{'name': 'Директивы. ng-repeat', 'snippet': 'ng-repeat выводит элементы массива как отдельные рядки данный текст. Конкретно в контроллере "quests" создан массив, приписанный к объекту $scope'},
+		{'name':'Объект $scope','snippet':'это своеобразная область видимости, в которую записываются переменные. Я записал туда массив, в котором находится данная строка, и вывел'},
+		{'name':'Фильтр','snippet':'Использовал стандартный фильтр для вывода текущей даты:  today | date: "dd/MM", где today = new Date()'}
+		];	
+		var date = new Date();
+		$scope.today = date;
+		});
+		myApp.comtroller('SampleAppCtrl', function($scope){
+		$scope.hideElem1 = false;
+		});	
+	</script>
+  </head>
+  <body ng-controller='quests'>
+	<div ng-controller='myFunction'>
+		<p>Hello world! Вызов первой функции (контроллера). Выводим значение name в данном scope</p>
+		<p>{{name}}</p>
+	</div>
+	<div ng-controller='myFunction2'>
+		<p>Вызов второй функции (контроллера). Выводим значение name в данном scope, получатся, переопределяем его</p>
+		<p>{{name}}</p>
+	</div>
+	<div ng-controller='myFunction'>
+		<p>А теперь вызываем первую функцию и смотрим, какое значение у name сейчас</p>
+		<p>{{name}}</p>
+	</div>
+	
+	<ul>
+		<li ng-repeat = 'quest in quests'>
+			<span>{{quest.name }}</span>
+			<p>{{quest.snippet}}</p>
+		</li>
+	</ul>
+
+	<div ng-controller='quests'>
+		<p> Выполнено пунктов: {{quests.length }}</p>
+		<p> Текущая дата: {{today | date: 'dd/MM'}}</p>
+	</div>
+
+	
+  </body>
+</html>
